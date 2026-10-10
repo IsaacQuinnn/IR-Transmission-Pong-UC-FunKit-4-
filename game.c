@@ -1,14 +1,49 @@
 #include "system.h"
+#include "pacer.h"
+#include "navswitch.h"
+#include "ledmat.h"
+
+#define PACER_RATE 500
+#define NUM_COLS   5
+#define PADDLE_COL 4        /* 0 on the other board */
+
+#define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
+#define TOP_ROW      0x01   /* bit 0 = row 0 */
+#define BOTTOM_ROW   0x40   /* bit 6 = row 6 */
+
+static uint8_t paddle = PADDLE_START;
+
+static void paddle_update (void)
+{
+    navswitch_update ();
+
+    if (navswitch_push_event_p (NAVSWITCH_NORTH) && !(paddle & TOP_ROW)) {
+        paddle >>= 1;
+    }
+    if (navswitch_push_event_p (NAVSWITCH_SOUTH) && !(paddle & BOTTOM_ROW)) {
+        paddle <<= 1;
+    }
+}
+
+static void display_update (void)
+{
+    static uint8_t col = 0;
+
+    ledmat_display_column (col == PADDLE_COL ? paddle : 0, col);
+
+    col = (col + 1) % NUM_COLS;
+}
 
 int main (void)
 {
     system_init ();
+    ledmat_init ();
+    navswitch_init ();
+    pacer_init (PACER_RATE);
 
-
-    while (1)
-    {
-
-
-
+    while (1) {
+        pacer_wait ();
+        paddle_update ();
+        display_update ();
     }
 }
