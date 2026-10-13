@@ -13,8 +13,8 @@
 #define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
 #define TOP_ROW 0x01   /* bit 0 = row 1 */
 #define BOTTOM_ROW 0x40   /* bit 6 = row 7 */
-#define PADDLE_COL 0
-#define BALL_SPEED_DIVIDER 250
+#define PADDLE_COL 4
+#define BALL_SPEED_DIVIDER 125
 
 static uint8_t paddle = PADDLE_START;
 static Ball my_ball;    
@@ -35,16 +35,10 @@ static void display_update (void)
 {
     static uint8_t col = 0;
 
-    // 1. Keep your original paddle logic (assigning the paddle mask to column 4)
     uint8_t paddle_pattern = (col == PADDLE_COL) ? paddle : 0;
     
-    // 2. Add the ball pattern from your new ball.c module
     uint8_t ball_pattern = ball_get_pattern(&my_ball, col);
-
-    // 3. Combine them using the OR (|) operator so they both light up on the matrix
     ledmat_display_column (paddle_pattern | ball_pattern, col);
-
-    // 4. Keep your original column loop incrementor
     col = (col + 1) % NUM_COLS;
 }
 
@@ -70,6 +64,7 @@ int main (void)
             player = 1;
         }
     }
+    /*ball movement - straight line FOR NOW*/
     my_ball = ball_init(); 
     uint16_t ball_tick_counter = 0;
     int ball_active = (player == 1) ? 1 : 0;
@@ -86,8 +81,8 @@ int main (void)
             uint8_t received_row = ir_uart_getc();
             my_ball.row_mask = received_row;
             ball_active = 1;
-            my_ball.current_col = 4;
-            my_ball.direction = -1;
+            my_ball.current_col = 0;
+            my_ball.direction = 1;
         }
 
         if (ball_active) {
@@ -96,16 +91,16 @@ int main (void)
                 ball_tick_counter = 0;
                 ball_update(&my_ball);
                 
-                if (my_ball.current_col == 0) {
+                if (my_ball.current_col == 4) {
                     if (my_ball.row_mask & paddle) {
-                        my_ball.direction = 1;
-                        my_ball.current_col = 1;
+                        my_ball.direction = -1;
+                        my_ball.current_col = 3;
                     } else {
                         my_ball.direction = 1; 
                     }
                 }
                 
-                if (my_ball.current_col > 4) {
+                if (my_ball.current_col < 0) {
                     ir_uart_putc(my_ball.row_mask);
                     ball_active = 0;
                     my_ball.current_col = -1;
