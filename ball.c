@@ -1,41 +1,27 @@
 #include "ball.h"
 
-/**
- * Initializes the ball using your exact starting rules.
- */
 Ball ball_init(void)
 {
     Ball new_ball;
     new_ball.current_col = BALL_COL_START;
     new_ball.row_mask = BALL_ROW_START;
-    new_ball.direction = 1; // Start by moving straight ahead (rightwards)
+    new_ball.direction = 1; // 1 = right, -1 = left
     return new_ball;
 }
 
-/**
- * Moves the ball straight across the columns.
- */
 void ball_update(Ball* ball)
 {
-    // Update the column index by adding the direction step
+    // Simply move the ball in its current direction
     ball->current_col += ball->direction;
-
-    // Simple bounds checking to make it bounce off the screen edges
-    if (ball->current_col >= 4) {
-        ball->direction = -1; // Bounce back left
-    }
-    if (ball->current_col <= 0) {
-        ball->direction = 1;  // Bounce back right
-    }
+    
+    // Do NOT automatically wrap or bounce here anymore!
+    // The main game loop will handle what happens when current_col goes out of bounds.
 }
 
-/**
- * Checks if the display multiplexing loop is looking at the ball's column.
- * Returns the row bitmask if true, or 0 if false.
- */
 uint8_t ball_get_pattern(Ball* ball, uint8_t display_col)
 {
-    if (display_col == ball->current_col) {
+    // Only display if the column index is valid (0 to 4)
+    if (display_col == ball->current_col && ball->current_col >= 0 && ball->current_col < 5) {
         return ball->row_mask;
     }
     return 0;
