@@ -16,6 +16,7 @@
 #define PADDLE_COL 4
 
 static uint8_t paddle = PADDLE_START;
+static Ball my_ball;    
 
 static void paddle_update (void)
 {
@@ -69,10 +70,20 @@ int main (void)
         }
     }
 
+    my_ball = ball_init(); 
+    uint16_t ball_tick_counter = 0;
+
     /* GAME LOOPING*/
     while (1) {
         pacer_wait ();
         paddle_update ();
+        
+        // Move the ball every 250 ticks
+        ball_tick_counter++;
+        if (ball_tick_counter >= 250) {
+            ball_tick_counter = 0;
+            ball_update(&my_ball);
+        }
+
         display_update ();
     }
-}
