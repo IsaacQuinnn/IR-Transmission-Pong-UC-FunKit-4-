@@ -5,7 +5,7 @@
 
 #define PACER_RATE 500
 #define NUM_COLS   5
-#define PADDLE_COL 4        /* 0 on the other board */
+#define PADDLE_COL 4        /* 0 on  left board, 4 on right board */
 
 #define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
 #define TOP_ROW      0x01   /* bit 0 = row 0 */
