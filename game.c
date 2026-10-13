@@ -2,10 +2,12 @@
 #include "pacer.h"
 #include "navswitch.h"
 #include "ledmat.h"
+#include "ir_uart.h"
 
+/* PADDLE CODE */
 #define PACER_RATE 500
 #define NUM_COLS   5
-#define PADDLE_COL 4        /* 0 on  left board, 4 on right board */
+
 
 #define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
 #define TOP_ROW      0x01   /* bit 0 = row 0 */
@@ -25,7 +27,7 @@ static void paddle_update (void)
     }
 }
 
-static void display_update (void)
+static void display_update (int PADDLE_COL)
 {
     static uint8_t col = 0;
 
@@ -41,9 +43,26 @@ int main (void)
     navswitch_init ();
     pacer_init (PACER_RATE);
 
+    /*PLAYER SELECTION - First to send*/
+    int player = 0;
+
+    while (player == 0) {
+        navswitch_update();
+
+        if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
+            player = 2;
+        } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
+            ir_uart_putc('S');
+            player = 1;
+        }
+    }
+
+    int PADDLE_COL = (player = 1) ? 0 : 4;
+
+    /* GAME LOOPING*/
     while (1) {
         pacer_wait ();
         paddle_update ();
-        display_update ();
+        display_update (PADDLE_COL);
     }
 }
