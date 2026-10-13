@@ -9,9 +9,9 @@
 #define NUM_COLS   5
 
 
-#define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
-#define TOP_ROW      0x01   /* bit 0 = row 0 */
-#define BOTTOM_ROW   0x40   /* bit 6 = row 6 */
+#define PADDLE_START1 0x1C   /* 0b0011100: 3 LEDs in the middle */
+#define TOP_ROW      0x01   /* bit 0 = row 1 */
+#define BOTTOM_ROW   0x40   /* bit 6 = row 7 */
 
 static uint8_t paddle = PADDLE_START;
 
@@ -31,8 +31,7 @@ static void display_update (int PADDLE_COL)
 {
     static uint8_t col = 0;
 
-    // ledmat_display_column (col == PADDLE_COL ? paddle : 0, col);
-    ledmat_display_column (col == PADDLE_COL ? paddle : 0, 4);
+    ledmat_display_column (col == PADDLE_COL ? paddle : 0, col);
 
     col = (col + 1) % NUM_COLS;
 }
@@ -42,7 +41,7 @@ int main (void)
     system_init ();
     ledmat_init ();
     navswitch_init ();
-    ir_uart_init ();
+    ir_uart_init ();#define PADDLE_START2 
     pacer_init (PACER_RATE);
 
     /*PLAYER SELECTION - First to send*/
@@ -59,7 +58,7 @@ int main (void)
         }
     }
 
-    int PADDLE_COL = (player = 1) ? 0 : 4;
+    int PADDLE_COL = (player = 1) ? 0 : 0;
 
     /* GAME LOOPING*/
     while (1) {
