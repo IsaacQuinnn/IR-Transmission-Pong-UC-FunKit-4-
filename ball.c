@@ -5,7 +5,7 @@ Ball ball_init(void)
     Ball new_ball;
     new_ball.current_col = BALL_COL_START;
     new_ball.row_mask = BALL_ROW_START;
-    new_ball.direction = 1; // 1 = right, -1 = left
+    new_ball.direction = -1; // 1 = right, -1 = left
     return new_ball;
 }
 
