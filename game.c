@@ -3,6 +3,7 @@
 #include "navswitch.h"
 #include "ledmat.h"
 #include "ir_uart.h"
+#include "ball.h"
 
 /* PADDLE CODE */
 #define PACER_RATE 500
@@ -28,15 +29,23 @@ static void paddle_update (void)
     }
 }
 
-static void display_update ()
+static void display_update (void)
 {
     static uint8_t col = 0;
 
-    // ledmat_display_column (col == PADDLE_COL ? paddle : 0, col);
-    ledmat_display_column (col == PADDLE_COL ? paddle : 0, PADDLE_COL);
+    // 1. Keep your original paddle logic (assigning the paddle mask to column 4)
+    uint8_t paddle_pattern = (col == PADDLE_COL) ? paddle : 0;
+    
+    // 2. Add the ball pattern from your new ball.c module
+    uint8_t ball_pattern = ball_get_pattern(&my_ball, col);
 
+    // 3. Combine them using the OR (|) operator so they both light up on the matrix
+    ledmat_display_column (paddle_pattern | ball_pattern, col);
+
+    // 4. Keep your original column loop incrementor
     col = (col + 1) % NUM_COLS;
 }
+
 
 int main (void)
 {

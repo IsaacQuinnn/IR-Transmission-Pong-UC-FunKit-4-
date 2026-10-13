@@ -1,3 +1,6 @@
+#ifndef BALL_H
+#define BALL_H
+
 #include "ledmat.h"
 #include "system.h"
 #include "pacer.h"
@@ -10,3 +13,14 @@
 #define COL_TO_SEND 4
 
 /*make a thing that moves straight accross*/
+typedef struct {
+    uint8_t current_col;    // Current column index (0 to 4)
+    uint8_t row_mask;       // The row bitmask (0x08)
+    int8_t direction;       // 1 for moving right, -1 for moving left
+} Ball;
+
+Ball ball_init(void);
+void ball_update(Ball* ball);
+uint8_t ball_get_pattern(Ball* ball, uint8_t display_col);
+
+#endif
