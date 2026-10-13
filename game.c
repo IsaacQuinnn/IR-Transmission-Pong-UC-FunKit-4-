@@ -31,7 +31,8 @@ static void display_update (int PADDLE_COL)
 {
     static uint8_t col = 0;
 
-    ledmat_display_column (col == PADDLE_COL ? paddle : 0, col);
+    // ledmat_display_column (col == PADDLE_COL ? paddle : 0, col);
+    ledmat_display_column (col == PADDLE_COL ? paddle : 0, 4);
 
     col = (col + 1) % NUM_COLS;
 }
