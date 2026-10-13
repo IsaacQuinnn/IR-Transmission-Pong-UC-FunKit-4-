@@ -42,7 +42,7 @@ int main (void)
     system_init ();
     ledmat_init ();
     navswitch_init ();
-    ir_uart_init ();#define PADDLE_START2 
+    ir_uart_init (); 
     pacer_init (PACER_RATE);
 
     /*PLAYER SELECTION - First to send*/
