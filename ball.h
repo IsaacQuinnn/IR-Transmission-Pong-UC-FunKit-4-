@@ -14,9 +14,9 @@
 
 /*make a thing that moves straight accross*/
 typedef struct {
-    uint8_t current_col;    // Current column index (0 to 4)
-    uint8_t row_mask;       // The row bitmask (0x08)
-    int8_t direction;       // 1 for moving right, -1 for moving left
+    int8_t current_col;
+    uint8_t row_mask;
+    int8_t direction;
 } Ball;
 
 Ball ball_init(void);
