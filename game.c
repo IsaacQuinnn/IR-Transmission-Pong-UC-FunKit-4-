@@ -58,7 +58,7 @@ int main (void)
         }
     }
 
-    int PADDLE_COL = (player = 1) ? 0 : 4;
+    int PADDLE_COL = (player = 1) ? 0 : 0;
 
     /* GAME LOOPING*/
     while (1) {
