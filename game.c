@@ -12,6 +12,7 @@
 #define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
 #define TOP_ROW      0x01   /* bit 0 = row 1 */
 #define BOTTOM_ROW   0x40   /* bit 6 = row 7 */
+#define PADDLE_COL 4
 
 static uint8_t paddle = PADDLE_START;
 
@@ -27,7 +28,7 @@ static void paddle_update (void)
     }
 }
 
-static void display_update (int PADDLE_COL)
+static void display_update ()
 {
     static uint8_t col = 0;
 
@@ -59,12 +60,10 @@ int main (void)
         }
     }
 
-    int PADDLE_COL = (player == 1) ? 0 : 4;
-
     /* GAME LOOPING*/
     while (1) {
         pacer_wait ();
         paddle_update ();
-        display_update (PADDLE_COL);
+        display_update ();
     }
 }
