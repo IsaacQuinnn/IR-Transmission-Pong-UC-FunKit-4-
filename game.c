@@ -32,7 +32,7 @@ static void display_update (int PADDLE_COL)
     static uint8_t col = 0;
 
     // ledmat_display_column (col == PADDLE_COL ? paddle : 0, col);
-    ledmat_display_column (col == PADDLE_COL ? paddle : 0, 4);
+    ledmat_display_column (col == PADDLE_COL ? paddle : 0, PADDLE_COL);
 
     col = (col + 1) % NUM_COLS;
 }
@@ -52,14 +52,14 @@ int main (void)
         navswitch_update();
 
         if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
-            player = 2;
+            static player = 2;
         } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
             ir_uart_putc('S');
-            player = 1;
+            static player = 1;
         }
     }
 
-    int PADDLE_COL = (player = 1) ? 0 : 0;
+    int PADDLE_COL = (player = 1) ? 0 : 4;
 
     /* GAME LOOPING*/
     while (1) {
