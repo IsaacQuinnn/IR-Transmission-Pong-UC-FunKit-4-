@@ -29,7 +29,7 @@ static void paddle_update (void)
 
 static void display_update (int PADDLE_COL)
 {
-    static uint8_t col = 0;
+    static uint8_t col = 1;
 
     ledmat_display_column (col == PADDLE_COL ? paddle : 0, col);
 
@@ -58,7 +58,7 @@ int main (void)
         }
     }
 
-    int PADDLE_COL = (player = 1) ? 0 : 0;
+    int PADDLE_COL = (player = 1) ? 0 : 4;
 
     /* GAME LOOPING*/
     while (1) {
