@@ -11,9 +11,10 @@
 
 
 #define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
-#define TOP_ROW      0x01   /* bit 0 = row 1 */
-#define BOTTOM_ROW   0x40   /* bit 6 = row 7 */
-#define PADDLE_COL 4
+#define TOP_ROW 0x01   /* bit 0 = row 1 */
+#define BOTTOM_ROW 0x40   /* bit 6 = row 7 */
+#define PADDLE_COL 0
+#define BALL_SPEED_DIVIDER 250
 
 static uint8_t paddle = PADDLE_START;
 static Ball my_ball;    
