@@ -52,10 +52,10 @@ int main (void)
         navswitch_update();
 
         if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
-            static player = 2;
+            player = 2;
         } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
             ir_uart_putc('S');
-            static player = 1;
+            player = 1;
         }
     }
 
