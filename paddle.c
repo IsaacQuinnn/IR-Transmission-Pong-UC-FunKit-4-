@@ -1,18 +1,19 @@
-
 #include "paddle.h"
 #include "navswitch.h"
 
-
-static uint8_t paddle = PADDLE_START;
-
-static void paddle_update (void)
+uint8_t paddle_init(void)
 {
-    navswitch_update ();
+    return PADDLE_START;
+}
 
-    if (navswitch_push_event_p (NAVSWITCH_NORTH) && !(paddle & TOP_ROW)) {
-        paddle >>= 1;
+void paddle_update(uint8_t* paddle_mask)
+{
+    navswitch_update();
+
+    if (navswitch_push_event_p(NAVSWITCH_NORTH) && !(*paddle_mask & TOP_ROW)) {
+        *paddle_mask >>= 1;
     }
-    if (navswitch_push_event_p (NAVSWITCH_SOUTH) && !(paddle & BOTTOM_ROW)) {
-        paddle <<= 1;
+    if (navswitch_push_event_p(NAVSWITCH_SOUTH) && !(*paddle_mask & BOTTOM_ROW)) {
+        *paddle_mask <<= 1;
     }
 }
