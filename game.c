@@ -48,7 +48,6 @@ int main (void)
 
     
     /*ball movement - straight line FOR NOW*/
-    // my_ball = ball_init(); 
     uint16_t ball_tick_counter = 0;
 
 
@@ -84,8 +83,8 @@ int main (void)
                 // Happy face
                 reset_game();
             
-                // receive the ball
-            } else {
+                
+            } else { //Receive ball
                 ball_active = 1;
                 ball_received(&my_ball, received);
             }
