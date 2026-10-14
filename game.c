@@ -83,17 +83,32 @@ int main (void)
         pacer_wait ();
         paddle_update (&paddle);
         
-        if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
-            player = 0;
-            ball_active = 0;
-        }
+        // if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
+        //     player = 0;
+        //     ball_active = 0;
+        // }
 
         if (!ball_active && ir_uart_read_ready_p()) {
-            uint8_t received_row = ir_uart_getc();
-            my_ball.row_mask = received_row;
-            ball_active = 1;
-            my_ball.current_col = 0;
-            my_ball.direction = 1;
+
+            uint8_t received = ir_uart_getc();
+            
+            if (received == 'R') {
+                player = 0;
+                ball_active = 0;
+            } else {
+                uint8_t received_row = received;
+                my_ball.row_mask = received_row;
+                ball_active = 1;
+                my_ball.current_col = 0;
+                my_ball.direction = 1;
+            }
+
+
+            // uint8_t received_row = ir_uart_getc();
+            // my_ball.row_mask = received_row;
+            // ball_active = 1;
+            // my_ball.current_col = 0;
+            // my_ball.direction = 1;
         }
 
         if (ball_active) {
