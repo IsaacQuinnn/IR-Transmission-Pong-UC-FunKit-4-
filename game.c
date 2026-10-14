@@ -111,7 +111,7 @@ int main (void)
                     }
                 }
                 
-                if (my_ball.current_col < 0) {
+                if (my_ball.current_col <= -1) {
                     ir_uart_putc(my_ball.row_mask);
                     ball_active = 0;
                     my_ball.current_col = -1;
