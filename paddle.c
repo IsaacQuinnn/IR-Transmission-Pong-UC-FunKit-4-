@@ -8,9 +8,9 @@ static int Upper;
 
 uint8_t paddle_init(void)
 {
-    Lower = 2;
-    Middle = 3;
-    Upper = 4;
+    Lower = 0x04;
+    Middle = 0x08;
+    Upper = 0x10;
     return PADDLE_START;
 }
 
@@ -20,15 +20,15 @@ void paddle_update(uint8_t* paddle_mask)
 
     if (navswitch_push_event_p(NAVSWITCH_NORTH) && !(*paddle_mask & TOP_ROW)) {
         *paddle_mask >>= 1;
-        Lower -=1;
-        Middle -= 1;
-        Upper -= 1;
+        Lower >>=1;
+        Middle >>= 1;
+        Upper >>= 1;
     }
     if (navswitch_push_event_p(NAVSWITCH_SOUTH) && !(*paddle_mask & BOTTOM_ROW)) {
         *paddle_mask <<= 1;
-        Lower +=1;
-        Middle += 1;
-        Upper += 1;
+        Lower <<=1;
+        Middle <<= 1;
+        Upper <<= 1;
     }
 }
 
