@@ -7,16 +7,29 @@ Ball ball_init(void)
     Ball new_ball;
     new_ball.current_col = BALL_COL_START;
     new_ball.row_mask = BALL_ROW_START;
-    new_ball.direction = 0;
+    new_ball.direction = -1;
     new_ball.diagonal = 0; // 1 = right, 0 = straight, -1 = left
     return new_ball;
 }
 
 void ball_update(Ball* ball)
 {
-    ball->current_col = ball->direction;
-    // ball->current_col -= 1;
-    ball->row_mask += ball->diagonal;
+    ball->current_col += ball->direction;
+
+    if (ball->diagonal == -1) {
+        ball->row_mask >>= 1;
+
+        if (ball->row_mask == TOP_ROW) {
+            ball->diagonal = 1;
+        }
+
+    } else if (ball->diagonal) {
+        ball->row_mask <<=1;
+
+        if (ball->row_mask == BOTTOM_ROW) {
+            ball->diagonal = -1;
+        }
+    }
 
 
 }
