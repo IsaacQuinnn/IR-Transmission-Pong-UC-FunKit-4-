@@ -101,7 +101,7 @@ int main (void)
                 if (my_ball.current_col == 4) {
                     //ball hits paddle
                     if (my_ball.row_mask & paddle) {
-                        hit_paddle(&my_ball);
+                        hit_paddle(&my_ball, paddle);
                     
                     //ball misses paddle
                     } else {
