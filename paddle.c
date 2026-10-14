@@ -1,5 +1,6 @@
 
 #include "paddle.h"
+#include "navswitch.h"
 
 
 static uint8_t paddle = PADDLE_START;

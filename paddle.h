@@ -6,9 +6,6 @@
 #include "pacer.h"
 #include "ir_uart.h"
 
-#define PACER_RATE 500
-#define NUM_COLS   5
-
 #define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
 #define TOP_ROW 0x01   /* bit 0 = row 1 */
 #define BOTTOM_ROW 0x40   /* bit 6 = row 7 */

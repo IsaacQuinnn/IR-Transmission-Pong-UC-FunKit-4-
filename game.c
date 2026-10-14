@@ -6,16 +6,11 @@
 #include "ball.h"
 #include "paddle.h"
 
-/* PADDLE CODE 
+/* PADDLE CODE */
 #define PACER_RATE 500
 #define NUM_COLS   5
-
-
-#define PADDLE_START 0x1C 
-#define TOP_ROW 0x01  
-#define BOTTOM_ROW 0x40   
-#define PADDLE_COL 4 */
 #define BALL_SPEED_DIVIDER 125
+#define PADDLE_SPEED_DIVIDER 20
 
 static uint8_t paddle = PADDLE_START;
 static Ball my_ball; 
@@ -33,6 +28,7 @@ static void paddle_update (void)
         paddle <<= 1;
     }
 }
+*/
 
 static void display_update (void)
 {
@@ -44,7 +40,7 @@ static void display_update (void)
     ledmat_display_column (paddle_pattern | ball_pattern, col);
     col = (col + 1) % NUM_COLS;
 }
-*/
+
 
 int main (void)
 {
