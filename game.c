@@ -54,16 +54,7 @@ int main (void)
     /*PLAYER SELECTION - First to send*/
     int player = 0;
 
-    while (player == 0) {
-        navswitch_update();
-
-        if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
-            player = 2;
-        } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
-            ir_uart_putc('S');
-            player = 1;
-        }
-    }
+    
     /*ball movement - straight line FOR NOW*/
     my_ball = ball_init(); 
     uint16_t ball_tick_counter = 0;
@@ -74,6 +65,18 @@ int main (void)
     }
 
     while (1) {
+
+        while (player == 0) {
+            navswitch_update();
+
+            if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
+                player = 2;
+            } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
+                ir_uart_putc('S');
+                player = 1;
+            }
+        }
+
         pacer_wait ();
         paddle_update ();
         
@@ -104,6 +107,7 @@ int main (void)
                     ir_uart_putc(my_ball.row_mask);
                     ball_active = 0;
                     my_ball.current_col = -1;
+                    player = 0;
                 }
             }
         }
