@@ -81,7 +81,7 @@ int main (void)
         paddle_update ();
         
         if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
-            player = 0
+            player = 0;
         }
 
         if (!ball_active && ir_uart_read_ready_p()) {
