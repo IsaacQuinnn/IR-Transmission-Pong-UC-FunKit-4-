@@ -17,7 +17,8 @@
 #define BALL_SPEED_DIVIDER 125
 
 static uint8_t paddle = PADDLE_START;
-static Ball my_ball;    
+static Ball my_ball; 
+static int ball_active = 0;   
 
 static void paddle_update (void)
 {
@@ -58,7 +59,7 @@ int main (void)
     /*ball movement - straight line FOR NOW*/
     my_ball = ball_init(); 
     uint16_t ball_tick_counter = 0;
-    int ball_active = (player == 1) ? 1 : 0;
+    // int ball_active = (player == 1) ? 1 : 0;
     
     if (!ball_active) {
         my_ball.current_col = -1; 
@@ -74,6 +75,7 @@ int main (void)
             } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
                 ir_uart_putc('S');
                 player = 1;
+                ball_active = 1;
             }
         }
 
@@ -82,6 +84,7 @@ int main (void)
         
         if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
             player = 0;
+            ball_active = 0;
         }
 
         if (!ball_active && ir_uart_read_ready_p()) {
@@ -112,6 +115,7 @@ int main (void)
                     ball_active = 0;
                     my_ball.current_col = -1;
                     player = 0;
+                    ball_active = 0;
                     ir_uart_putc('R');
                 }
             }
