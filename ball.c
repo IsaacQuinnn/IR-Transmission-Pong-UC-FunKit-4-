@@ -64,7 +64,7 @@ void hit_paddle(Ball* ball)
 
     } else if (ball->row_mask == get_upper()) {//hits the right side of the paddle
         ball->diagonal = 1;
-        ball->direction = 1;
+        
     }
 }
 
