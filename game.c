@@ -4,22 +4,24 @@
 #include "ledmat.h"
 #include "ir_uart.h"
 #include "ball.h"
+#include "paddle.h"
 
-/* PADDLE CODE */
+/* PADDLE CODE 
 #define PACER_RATE 500
 #define NUM_COLS   5
 
 
-#define PADDLE_START 0x1C   /* 0b0011100: 3 LEDs in the middle */
-#define TOP_ROW 0x01   /* bit 0 = row 1 */
-#define BOTTOM_ROW 0x40   /* bit 6 = row 7 */
-#define PADDLE_COL 4
+#define PADDLE_START 0x1C 
+#define TOP_ROW 0x01  
+#define BOTTOM_ROW 0x40   
+#define PADDLE_COL 4 */
 #define BALL_SPEED_DIVIDER 125
 
 static uint8_t paddle = PADDLE_START;
 static Ball my_ball; 
 static int ball_active = 0;   
 
+/*
 static void paddle_update (void)
 {
     navswitch_update ();
@@ -42,7 +44,7 @@ static void display_update (void)
     ledmat_display_column (paddle_pattern | ball_pattern, col);
     col = (col + 1) % NUM_COLS;
 }
-
+*/
 
 int main (void)
 {
