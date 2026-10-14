@@ -35,3 +35,10 @@ void hit_paddle(Ball* ball)
     ball->current_col = 3;
 }
 
+void ball_received(Ball* ball, uint8_t row)
+{
+    ball->row_mask = row;
+    ball->current_col = 0;
+    ball->direction = 1;
+}
+

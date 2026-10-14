@@ -15,20 +15,13 @@
 static uint8_t paddle = PADDLE_START;
 static Ball my_ball; 
 static int ball_active = 0;   
+static int player;
 
-/*
-static void paddle_update (void)
+static void reset_game(void)
 {
-    navswitch_update ();
-
-    if (navswitch_push_event_p (NAVSWITCH_NORTH) && !(paddle & TOP_ROW)) {
-        paddle >>= 1;
-    }
-    if (navswitch_push_event_p (NAVSWITCH_SOUTH) && !(paddle & BOTTOM_ROW)) {
-        paddle <<= 1;
-    }
+    player = 0;
+    ball_active = 0;
 }
-*/
 
 static void display_update (void)
 {
@@ -51,7 +44,7 @@ int main (void)
     pacer_init (PACER_RATE);
 
     /*PLAYER SELECTION - First to send*/
-    int player = 0;
+    player = 0;
 
     
     /*ball movement - straight line FOR NOW*/
@@ -86,17 +79,15 @@ int main (void)
 
             uint8_t received = ir_uart_getc();
 
+            // You Win!
             if (received == 'R') {
-                // sad face
-                player = 0;
-                ball_active = 0;
-
+                // Happy face
+                reset_game();
+            
+                // receive the ball
             } else {
-                uint8_t received_row = received;
-                my_ball.row_mask = received_row;
                 ball_active = 1;
-                my_ball.current_col = 0;
-                my_ball.direction = 1;
+                ball_received(&my_ball, received);
             }
 
         }
@@ -115,11 +106,11 @@ int main (void)
                     
                     //ball misses paddle
                     } else {
+                        // You lose 
                         ir_uart_putc('R');
-                        // happy face
+                        // Sad face
 
-                        player = 0;
-                        ball_active = 0;
+                        reset_game();
                         
                     }
                 }
