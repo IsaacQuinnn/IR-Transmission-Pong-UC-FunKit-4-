@@ -83,10 +83,10 @@ int main (void)
         pacer_wait ();
         paddle_update (&paddle);
         
-        // if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
-        //     player = 0;
-        //     ball_active = 0;
-        // }
+        if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
+            player = 0;
+            ball_active = 0;
+        }
 
         if (!ball_active && ir_uart_read_ready_p()) {
             uint8_t received_row = ir_uart_getc();
@@ -111,8 +111,6 @@ int main (void)
                     
                     //ball misses paddle
                     } else {
-                        // my_ball.direction = 1; 
-
                         player = 0;
                         ball_active = 0;
                         // ir_uart_putc('R');
