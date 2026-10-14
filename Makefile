@@ -16,7 +16,7 @@ all: game.out
 
 
 # Compile: create object files from C source files.
-game.o: game.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../drivers/ledmat.h ../../utils/pacer.h ball.h paddle.h
+game.o: game.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../drivers/ledmat.h ../../utils/pacer.h paddle.h ball.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 system.o: ../../drivers/avr/system.c ../../drivers/avr/system.h
@@ -49,11 +49,13 @@ timer0.o: ../../drivers/avr/timer0.c ../../drivers/avr/system.h ../../drivers/av
 prescale.o: ../../drivers/avr/prescale.c ../../drivers/avr/system.h ../../drivers/avr/prescale.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-ball.o: ball.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../drivers/avr/ir_uart.h ball.h
-	$(CC) -c $(CFLAGS) $< -o $@
-
 paddle.o: paddle.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../drivers/avr/ir_uart.h paddle.h
 	$(CC) -c $(CFLAGS) $< -o $@
+
+ball.o: ball.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../drivers/avr/ir_uart.h paddle.h ball.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+
 
 # Link: create ELF output file from object files.
 game.out: game.o system.o pio.o timer.o pacer.o navswitch.o ledmat.o ir_uart.o usart1.o timer0.o prescale.o ball.o paddle.o
