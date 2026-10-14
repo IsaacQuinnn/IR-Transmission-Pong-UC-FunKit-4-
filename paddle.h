@@ -1,3 +1,10 @@
+/** @file   ball.h
+    @author Alex Shepherd & Isaac Quinn
+    @date   14 October 2026
+
+    @brief Routines for moving the paddle
+*/
+
 #ifndef PADDLE_H
 #define PADDLE_H
 

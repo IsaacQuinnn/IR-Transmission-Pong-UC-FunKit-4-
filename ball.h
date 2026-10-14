@@ -1,3 +1,10 @@
+/** @file   ball.h
+    @author Alex Shepherd & Isaac Quinn
+    @date   14 October 2026
+
+    @brief Routines for moving the ball
+*/
+
 #ifndef BALL_H
 #define BALL_H
 
