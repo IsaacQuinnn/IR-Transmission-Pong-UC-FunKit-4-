@@ -17,6 +17,7 @@ typedef struct {
     int8_t current_col;
     uint8_t row_mask;
     int8_t direction;
+    int8_t diagonal;
 } Ball;
 
 Ball ball_init(void);
