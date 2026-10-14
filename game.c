@@ -55,12 +55,12 @@ int main (void)
 
     
     /*ball movement - straight line FOR NOW*/
-    my_ball = ball_init(); 
+    // my_ball = ball_init(); 
     uint16_t ball_tick_counter = 0;
     
-    if (!ball_active) {
-        my_ball.current_col = -1; 
-    }
+    // if (!ball_active) {
+    //     my_ball.current_col = -1; 
+    // }
 
     while (1) {
 
@@ -69,10 +69,14 @@ int main (void)
 
             if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
                 player = 2;
+                my_ball.current_col = -1;
             } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
                 ir_uart_putc('S');
                 player = 1;
                 ball_active = 1;
+
+                my_ball = ball_init(); 
+                
             }
         }
 
