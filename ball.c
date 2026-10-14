@@ -54,13 +54,13 @@ void hit_paddle(Ball* ball)
     ball->current_col = 3;
 
     // diagonal movement
-    if (ball->row_mask == get_lower()) { //hits the left side of the paddle
+    if (ball->row_mask == get_upper()) { //hits the left side of the paddle
         ball->diagonal = -1;
 
     } else if (ball->row_mask == get_middle()) { // hits the middle of the paddle
         ball->diagonal = 0;
 
-    } else if (ball->row_mask == get_upper()) {//hits the right side of the paddle
+    } else if (ball->row_mask == get_lower()) {//hits the right side of the paddle
         ball->diagonal = 1;
     }
 }
