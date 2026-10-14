@@ -83,10 +83,10 @@ int main (void)
         pacer_wait ();
         paddle_update (&paddle);
         
-        // if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
-        //     player = 0;
-        //     ball_active = 0;
-        // }
+        if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
+            player = 0;
+            ball_active = 0;
+        }
 
         if (!ball_active && ir_uart_read_ready_p()) {
             uint8_t received_row = ir_uart_getc();
@@ -102,22 +102,28 @@ int main (void)
                 ball_tick_counter = 0;
                 ball_update(&my_ball);
                 
+                //ball hits paddle side
                 if (my_ball.current_col == 4) {
+                    //ball hits paddle
                     if (my_ball.row_mask & paddle) {
                         my_ball.direction = -1;
                         my_ball.current_col = 3;
+                    
+                    //ball misses paddle
                     } else {
-                        my_ball.direction = 1; 
+                        // my_ball.direction = 1; 
+
+                        player = 0;
+                        ball_active = 0;
+                        ir_uart_putc('R');
                     }
                 }
                 
-                if (my_ball.current_col <= -1) {
+                // ball transfers to other controller
+                if (my_ball.current_col < 0) {
                     ir_uart_putc(my_ball.row_mask);
                     ball_active = 0;
                     my_ball.current_col = -1;
-                    player = 0;
-                    ball_active = 0;
-                    // ir_uart_putc('R');
                 }
             }
         }
