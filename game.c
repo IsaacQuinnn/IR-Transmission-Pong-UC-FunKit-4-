@@ -80,6 +80,10 @@ int main (void)
         pacer_wait ();
         paddle_update ();
         
+        if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
+            player = 0
+        }
+
         if (!ball_active && ir_uart_read_ready_p()) {
             uint8_t received_row = ir_uart_getc();
             my_ball.row_mask = received_row;
@@ -108,9 +112,12 @@ int main (void)
                     ball_active = 0;
                     my_ball.current_col = -1;
                     player = 0;
+                    ir_uart_putc('R');
                 }
             }
         }
+
+
 
         display_update ();
     }
