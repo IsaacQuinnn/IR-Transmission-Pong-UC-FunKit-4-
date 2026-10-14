@@ -59,7 +59,6 @@ int main (void)
     /*ball movement - straight line FOR NOW*/
     my_ball = ball_init(); 
     uint16_t ball_tick_counter = 0;
-    // int ball_active = (player == 1) ? 1 : 0;
     
     if (!ball_active) {
         my_ball.current_col = -1; 
@@ -82,10 +81,10 @@ int main (void)
         pacer_wait ();
         paddle_update ();
         
-        if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
-            player = 0;
-            ball_active = 0;
-        }
+        // if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
+        //     player = 0;
+        //     ball_active = 0;
+        // }
 
         if (!ball_active && ir_uart_read_ready_p()) {
             uint8_t received_row = ir_uart_getc();
@@ -114,9 +113,9 @@ int main (void)
                     ir_uart_putc(my_ball.row_mask);
                     ball_active = 0;
                     my_ball.current_col = -1;
-                    player = 0;
-                    ball_active = 0;
-                    ir_uart_putc('R');
+                    // player = 0;
+                    // ball_active = 0;
+                    // ir_uart_putc('R');
                 }
             }
         }
