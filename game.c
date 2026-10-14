@@ -91,7 +91,7 @@ int main (void)
         if (!ball_active && ir_uart_read_ready_p()) {
 
             uint8_t received = ir_uart_getc();
-            
+
             if (received == 'R') {
                 player = 0;
                 ball_active = 0;
@@ -128,7 +128,7 @@ int main (void)
                     } else {
                         player = 0;
                         ball_active = 0;
-                        // ir_uart_putc('R');
+                        ir_uart_putc('R');
                     }
                 }
                 
