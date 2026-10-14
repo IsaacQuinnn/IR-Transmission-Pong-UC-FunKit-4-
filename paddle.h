@@ -11,7 +11,11 @@
 #define BOTTOM_ROW 0x40
 #define PADDLE_COL 4
 
+
 uint8_t paddle_init(void);
 void paddle_update(uint8_t* paddle_mask);
+int get_middle(void);
+int get_upper(void);
+int get_lower(void);
 
 #endif
