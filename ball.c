@@ -29,3 +29,9 @@ void ball_transfer(Ball* ball)
     ball->current_col = -1;
 }
 
+void hit_paddle(Ball* ball)
+{
+    ball->direction = -1;
+    ball->current_col = 3;
+}
+
