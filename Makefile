@@ -52,6 +52,8 @@ prescale.o: ../../drivers/avr/prescale.c ../../drivers/avr/system.h ../../driver
 ball.o: ball.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../drivers/avr/ir_uart.h ball.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+paddle.o: paddle.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../drivers/avr/ir_uart.h paddle.h
+	$(CC) -c $(CFLAGS) $< -o $@
 
 # Link: create ELF output file from object files.
 game.out: game.o system.o pio.o timer.o pacer.o navswitch.o ledmat.o ir_uart.o usart1.o timer0.o prescale.o ball.o
