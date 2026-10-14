@@ -115,8 +115,8 @@ int main (void)
                     ir_uart_putc(my_ball.row_mask);
                     ball_active = 0;
                     my_ball.current_col = -1;
-                    // player = 0;
-                    // ball_active = 0;
+                    player = 0;
+                    ball_active = 0;
                     // ir_uart_putc('R');
                 }
             }
