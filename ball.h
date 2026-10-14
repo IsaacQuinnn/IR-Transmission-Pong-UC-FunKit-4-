@@ -22,5 +22,6 @@ typedef struct {
 Ball ball_init(void);
 void ball_update(Ball* ball);
 uint8_t ball_get_pattern(Ball* ball, uint8_t display_col);
+void ball_transfer(Ball* ball);
 
 #endif

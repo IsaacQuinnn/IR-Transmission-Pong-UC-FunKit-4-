@@ -1,4 +1,5 @@
 #include "ball.h"
+#include "ir_uart.h"
 
 Ball ball_init(void)
 {
@@ -21,3 +22,10 @@ uint8_t ball_get_pattern(Ball* ball, uint8_t display_col)
     }
     return 0;
 }
+
+void ball_transfer(Ball* ball)
+{
+    ir_uart_putc(ball->row_mask);
+    ball->current_col = -1;
+}
+

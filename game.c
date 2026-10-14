@@ -127,9 +127,8 @@ int main (void)
                 
                 // ball transfers to other controller
                 if (my_ball.current_col < 0) {
-                    ir_uart_putc(my_ball.row_mask);
+                    ball_transfer(&my_ball);
                     ball_active = 0;
-                    my_ball.current_col = -1;
                 }
             }
         }
