@@ -57,10 +57,7 @@ int main (void)
     /*ball movement - straight line FOR NOW*/
     // my_ball = ball_init(); 
     uint16_t ball_tick_counter = 0;
-    
-    // if (!ball_active) {
-    //     my_ball.current_col = -1; 
-    // }
+
 
     while (1) {
 
@@ -70,11 +67,12 @@ int main (void)
             if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
                 player = 2;
                 my_ball.current_col = -1;
+                paddle = PADDLE_START;
             } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
                 ir_uart_putc('S');
                 player = 1;
                 ball_active = 1;
-
+                paddle = PADDLE_START;
                 my_ball = ball_init(); 
                 
             }
@@ -83,18 +81,16 @@ int main (void)
         pacer_wait ();
         paddle_update (&paddle);
         
-        // if (ir_uart_read_ready_p() && ir_uart_getc() == 'R') {
-        //     player = 0;
-        //     ball_active = 0;
-        // }
 
         if (!ball_active && ir_uart_read_ready_p()) {
 
             uint8_t received = ir_uart_getc();
 
             if (received == 'R') {
+                // sad face
                 player = 0;
                 ball_active = 0;
+
             } else {
                 uint8_t received_row = received;
                 my_ball.row_mask = received_row;
@@ -103,12 +99,6 @@ int main (void)
                 my_ball.direction = 1;
             }
 
-
-            // uint8_t received_row = ir_uart_getc();
-            // my_ball.row_mask = received_row;
-            // ball_active = 1;
-            // my_ball.current_col = 0;
-            // my_ball.direction = 1;
         }
 
         if (ball_active) {
@@ -126,9 +116,12 @@ int main (void)
                     
                     //ball misses paddle
                     } else {
+                        ir_uart_putc('R');
+                        // happy face
+
                         player = 0;
                         ball_active = 0;
-                        ir_uart_putc('R');
+                        
                     }
                 }
                 
