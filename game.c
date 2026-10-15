@@ -42,11 +42,12 @@ int main (void)
 {
     //Initialise
     system_init ();
+    start_init ();
     ledmat_init ();
     navswitch_init ();
     ir_uart_init (); 
     pacer_init (PACER_RATE);
-    start_init ();
+    
 
     player = 0;
     uint16_t ball_tick_counter = 0;
@@ -56,7 +57,7 @@ int main (void)
          /*PLAYER SELECTION - First to send*/
         while (player == 0) {
             navswitch_update();
-            // start_update();
+            start_update();
 
             /*if recieved, you are player 2*/
             if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
