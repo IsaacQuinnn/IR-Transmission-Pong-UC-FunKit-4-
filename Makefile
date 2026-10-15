@@ -64,7 +64,7 @@ paddle.o: paddle.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/
 ball.o: ball.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../drivers/avr/ir_uart.h paddle.h ball.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-start.o: start.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/tinygl.h start.h
+start.o: start.c ../../drivers/avr/system.h ../../fonts/font5x7_1.h ../../utils/pacer.h ../../drivers/ledmat.h ../../utils/tinygl.h start.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 end.o: end.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/tinygl.h end.h
