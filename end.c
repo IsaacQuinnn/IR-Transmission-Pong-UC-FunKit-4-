@@ -4,6 +4,8 @@
 #include "end.h"
 #include "pacer.h"
 
+#define PACER_RATE 500
+
 static const uint8_t happy_face[]=
 {
     0x10, 0x22, 0x20, 0x22, 0x10
@@ -34,7 +36,7 @@ void show_face(bool won, uint16_t time)
 
 void play_again(void) {
     tinygl_clear();
-    tinygl_draw_string("PLAY AGAIN?");
+    tinygl_text("PLAY AGAIN?");
     while (1) {
         pacer_wait();
         tinygl_update();
