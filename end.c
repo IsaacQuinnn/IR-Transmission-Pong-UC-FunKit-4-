@@ -27,6 +27,7 @@ void show_face(bool won, uint16_t time)
         pacer_wait();
         ledmat_display_column(face[col], col);
         col = (col + 1) % 5;
+        pacer_wait();
     }
     ledmat_display_column(0, 0);
 }
