@@ -19,6 +19,7 @@ static const uint8_t sad_face[]=
 
 void show_face(bool won, uint16_t time)
 {
+    pacer_init(PACER_RATE);
     const uint8_t* face = won ? happy_face : sad_face;
     uint16_t ticks = time * PACER_RATE / 1000;
     uint8_t col = 0;
