@@ -3,6 +3,7 @@
 #include "tinygl.h"
 #include "end.h"
 #include "pacer.h"
+#include "font5x7_1.h"
 
 #define PACER_RATE 500
 
@@ -20,28 +21,34 @@ void show_face(bool won, uint16_t time)
 {
     const uint8_t* face = won ? happy_face : sad_face;
     uint16_t ticks = time * PACER_RATE / 1000;
-    tinygl_clear();
-    for (uint8_t col=0; col < 5; col++) {
-        for (uint8_t row=0; row < 7; row++) {
-            if (face[col]& (1<<row)) {
-                tinygl_draw_point(tinygl_point(row, col), 1);
-            }
-        }
-    }
+    uint8_t col = 0;
+
     while (ticks--) {
         pacer_wait();
-        tinygl_update();
+        ledmat_display_column(face[col], col);
+        col = (col + 1) % 5;
     }
+    ledmat_display_column(0, 0);
 }
 
 void play_again(void) {
     tinygl_clear();
-    tinygl_text("PLAY AGAIN?");
+    tinygl_font_set (&font5x7_1);
+    tinygl_text_speed_set (20);
+    tinygl_text_mode_set (TINYGL_TEXT_MODE_SCROLL);
+    tinygl_text_dir_set (TINYGL_TEXT_DIR_ROTATE);
+    tinygl_text ("PLAY AGAIN? ");
+
     while (1) {
-        pacer_wait();
-        tinygl_update();
-        if (navswitch_push_event_p(NAVSWITCH_PUSH)) {
+        pacer_wait ();
+        tinygl_update ();
+        navswitch_update ();
+
+        if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
             break;
         }
     }
+
+    tinygl_clear ();
+    tinygl_update ();
 }
