@@ -49,16 +49,30 @@ timer0.o: ../../drivers/avr/timer0.c ../../drivers/avr/system.h ../../drivers/av
 prescale.o: ../../drivers/avr/prescale.c ../../drivers/avr/system.h ../../drivers/avr/prescale.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+display.o: ../../drivers/display.c ../../drivers/avr/system.h ../../drivers/display.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+font.o: ../../utils/font.c ../../drivers/avr/system.h ../../utils/font.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+tinygl.o: ../../utils/tinygl.c ../../drivers/avr/system.h ../../utils/tinygl.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
 paddle.o: paddle.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../drivers/avr/ir_uart.h paddle.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 ball.o: ball.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../drivers/avr/ir_uart.h paddle.h ball.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+start.o: start.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/tinygl.h start.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+end.o: end.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/tinygl.h end.h
+	$(CC) -c $(CFLAGS) $< -o $@
 
 
 # Link: create ELF output file from object files.
-game.out: game.o system.o pio.o timer.o pacer.o navswitch.o ledmat.o ir_uart.o usart1.o timer0.o prescale.o ball.o paddle.o
+game.out: game.o system.o pio.o timer.o pacer.o navswitch.o ledmat.o ir_uart.o usart1.o timer0.o prescale.o display.o font.o tinygl.o ball.o paddle.o start.o end.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
