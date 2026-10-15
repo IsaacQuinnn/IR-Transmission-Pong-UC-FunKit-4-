@@ -17,7 +17,7 @@ void start_init(void)
     tinygl_text_mode_set (TINYGL_TEXT_MODE_SCROLL);
     tinygl_text_dir_set (TINYGL_TEXT_DIR_ROTATE);
 
-    tinygl_text("PRESS JOYSTICK TO PLAY");
+    tinygl_text("PRESS TO PLAY");
 
     pacer_init (PACER_RATE);
 }
