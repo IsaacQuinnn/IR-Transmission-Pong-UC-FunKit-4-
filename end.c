@@ -3,7 +3,7 @@
 #include "tinygl.h"
 #include "end.h"
 #include "pacer.h"
-#include "font5x7_1.h"
+#include "font3x5_1.h"
 
 #define PACER_RATE 500
 
@@ -34,7 +34,7 @@ void show_face(bool won, uint16_t time)
 
 void play_again(void) {
     tinygl_clear();
-    tinygl_font_set (&font5x7_1);
+    tinygl_font_set (&font3x5_1);
     tinygl_text_speed_set (20);
     tinygl_text_mode_set (TINYGL_TEXT_MODE_SCROLL);
     tinygl_text_dir_set (TINYGL_TEXT_DIR_ROTATE);

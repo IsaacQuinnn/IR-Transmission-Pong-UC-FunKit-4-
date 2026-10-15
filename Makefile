@@ -67,7 +67,7 @@ ball.o: ball.c ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledm
 start.o: start.c ../../drivers/avr/system.h ../../fonts/font3x5_1.h ../../utils/pacer.h ../../drivers/ledmat.h ../../utils/tinygl.h start.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-end.o: end.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/tinygl.h end.h
+end.o: end.c ../../drivers/avr/system.h ../../fonts/font3x5_1.h  ../../drivers/ledmat.h ../../utils/tinygl.h end.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 
