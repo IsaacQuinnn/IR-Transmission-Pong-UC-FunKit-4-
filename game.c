@@ -5,6 +5,8 @@
 #include "ir_uart.h"
 #include "ball.h"
 #include "paddle.h"
+#include "start.h"
+#include "end.h"
 
 /* PADDLE & BALL INITIALISATION */
 #define PACER_RATE 500
