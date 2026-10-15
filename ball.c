@@ -82,6 +82,7 @@ void hit_paddle(Ball* ball, uint8_t paddle_mask)
         ball->diagonal = 0;
     } else if (ball->row_mask == lower) {
         ball->diagonal = 1;
+        
     }
 }
 
