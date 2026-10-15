@@ -86,7 +86,7 @@ int main (void)
             // You Win!
             if (received == 'R') {
                 // Happy face
-                show_face(true, 15000);
+                show_face(1, 3000);
                 play_again();
                 reset_game();
             
@@ -115,7 +115,7 @@ int main (void)
                         // You lose 
                         ir_uart_putc('R');
                         // Sad face
-                        show_face(false, 15000);
+                        show_face(0, 3000);
                         play_again();
                         reset_game();
                         

@@ -17,7 +17,7 @@ static const uint8_t sad_face[]=
     0x10, 0x12, 0x10, 0x12, 0x10
 };
 
-void show_face(bool won, uint16_t time)
+void show_face(int won, uint32_t time)
 {
     pacer_init(PACER_RATE);
     const uint8_t* face = won ? happy_face : sad_face;
@@ -28,7 +28,6 @@ void show_face(bool won, uint16_t time)
         pacer_wait();
         ledmat_display_column(face[col], col);
         col = (col + 1) % 5;
-        pacer_wait();
     }
     ledmat_display_column(0, 0);
 }

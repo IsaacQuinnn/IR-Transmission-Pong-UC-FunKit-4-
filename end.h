@@ -13,7 +13,8 @@
 #include "navswitch.h"
 #include "pacer.h"
 
-void show_face(bool won, uint16_t time);
+
+void show_face(int won, uint32_t time);
 void play_again(void);
 
 #endif
