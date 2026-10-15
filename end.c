@@ -49,7 +49,4 @@ void play_again(void) {
             break;
         }
     }
-
-    tinygl_clear ();
-    tinygl_update ();
 }
