@@ -6,7 +6,7 @@
 #include "ball.h"
 #include "paddle.h"
 
-/* PADDLE CODE */
+/* PADDLE & BALL INITIALISATION */
 #define PACER_RATE 500
 #define NUM_COLS   5
 #define BALL_SPEED_DIVIDER 125
@@ -17,6 +17,7 @@ static Ball my_ball;
 static int ball_active = 0;   
 static int player;
 
+/*when called, game is reset & p1/p2 can be chosen again*/
 static void reset_game(void)
 {
     player = 0;
@@ -28,7 +29,7 @@ static void display_update (void)
     static uint8_t col = 0;
 
     uint8_t paddle_pattern = (col == PADDLE_COL) ? paddle : 0;
-    
+    /*decides the pattern for the ball column*/
     uint8_t ball_pattern = ball_get_pattern(&my_ball, col);
     ledmat_display_column (paddle_pattern | ball_pattern, col);
     col = (col + 1) % NUM_COLS;
@@ -43,23 +44,21 @@ int main (void)
     ir_uart_init (); 
     pacer_init (PACER_RATE);
 
-    /*PLAYER SELECTION - First to send*/
     player = 0;
-
-    
-    /*ball movement - straight line FOR NOW*/
     uint16_t ball_tick_counter = 0;
 
 
     while (1) {
-
+         /*PLAYER SELECTION - First to send*/
         while (player == 0) {
             navswitch_update();
 
+            /*if recieved, you are player 2*/
             if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
                 player = 2;
                 my_ball.current_col = -1;
                 paddle = PADDLE_START;
+            /*if sent, you are player 1 & start with the ball*/
             } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
                 ir_uart_putc('S');
                 player = 1;
@@ -73,7 +72,7 @@ int main (void)
         pacer_wait ();
         paddle_update (&paddle);
         
-
+        /*ball movement*/
         if (!ball_active && ir_uart_read_ready_p()) {
 
             uint8_t received = ir_uart_getc();
@@ -81,6 +80,7 @@ int main (void)
             // You Win!
             if (received == 'R') {
                 // Happy face
+                
                 reset_game();
             
                 
@@ -90,7 +90,7 @@ int main (void)
             }
 
         }
-
+        /*if ball is active, update its position*/
         if (ball_active) {
             ball_tick_counter++;
             if (ball_tick_counter >= BALL_SPEED_DIVIDER) {
@@ -123,7 +123,7 @@ int main (void)
         }
 
 
-
+        /*update display*/
         display_update ();
     }
 }
