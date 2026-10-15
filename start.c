@@ -5,8 +5,7 @@
 #include "start.h"
 
 #define PACER_RATE 500
-#define MESSAGE_RATE 10
-
+#define MESSAGE_RATE 20
 //Initialise
 void start_init(void)
 {
