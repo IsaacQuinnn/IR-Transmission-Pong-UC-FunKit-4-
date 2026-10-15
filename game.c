@@ -26,7 +26,7 @@ static void reset_game(void)
     ball_active = 0;
 }
 
-static void display_update (void)
+static void display_update_game (void)
 {
     static uint8_t col = 0;
 
@@ -56,7 +56,7 @@ int main (void)
          /*PLAYER SELECTION - First to send*/
         while (player == 0) {
             navswitch_update();
-            start_update();
+            // start_update();
 
             /*if recieved, you are player 2*/
             if (ir_uart_read_ready_p() && ir_uart_getc() == 'S') {
@@ -130,6 +130,6 @@ int main (void)
 
 
         /*update display*/
-        display_update ();
+        display_update_game ();
     }
 }

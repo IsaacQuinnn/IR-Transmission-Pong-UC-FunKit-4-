@@ -7,9 +7,17 @@
 #ifndef START_H
 #define START_H
 
-#include "ledmat.h"
 #include "system.h"
+#include "pacer.h"
 #include "tinygl.h"
+#include "../fonts/font5x7_1.h"
+
+//Initialise
+void start_init(void);
+
+//Call tinygl function
+void start_update(void);
+
 
 #endif
 
