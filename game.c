@@ -59,7 +59,7 @@ static void display_update_game (void)
 int main (void)
 {
     //Initialise
-    game_init()
+    game_init();
     uint16_t ball_tick_counter = 0;
 
 
