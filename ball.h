@@ -3,7 +3,7 @@
     @date   14 October 2026
     @brief Routines for moving the ball support
 
-    @defgroup Routines for moving the ball
+    @defgroup Routines for moving the ball module
 
 */
 

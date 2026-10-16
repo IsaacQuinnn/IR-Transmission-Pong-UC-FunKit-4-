@@ -1,7 +1,7 @@
 /** @file   end.c
     @author Alex Shepherd and Isaac Quinn
     @date   16 October 2026
-    @brief  Ending / Play again screen for when a player Wins/Loses
+    @brief  Ending / Play again screen for when a player Wins/Loses module
 */
 
 #include "ledmat.h"

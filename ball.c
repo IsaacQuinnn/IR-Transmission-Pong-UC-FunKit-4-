@@ -1,7 +1,7 @@
 /** @file   ball.c
     @author Alex Shepherd and Isaac Quinn
     @date   15 October 2026
-    @brief  Controll a ball to move across the screen
+    @brief  Controll a ball to move across the screen module
 */
 
 #include "ball.h"

@@ -1,7 +1,9 @@
 /** @file   ball.h
     @author Alex Shepherd & Isaac Quinn
     @date   15 October 2026
-    @brief Ending / Play again screen for when a player Wins/Loses
+    @brief Ending / Play again screen for when a player Wins/Loses support
+
+    @defgroup Ending / Play again screen for when a player Wins/Loses module
 */
 #ifndef END_H
 #define END_H
