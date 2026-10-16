@@ -1,8 +1,7 @@
 /** @file   ball.h
     @author Alex Shepherd & Isaac Quinn
     @date   15 October 2026
-
-    @brief Lets the user know who won.
+    @brief Ending / Play again screen for when a player Wins/Loses
 */
 #ifndef END_H
 #define END_H
@@ -13,8 +12,10 @@
 #include "navswitch.h"
 #include "pacer.h"
 
-
+//Shows the Win/Lose face once Won/Lost
 void show_face(int won, uint32_t time);
+
+//Displays "PLAY AGAIN?" on screen
 void play_again(void);
 
 #endif

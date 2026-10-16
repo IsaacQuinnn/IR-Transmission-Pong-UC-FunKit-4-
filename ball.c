@@ -1,7 +1,14 @@
+/** @file   ball.c
+    @author Alex Shepherd and Isaac Quinn
+    @date   15 October 2026
+    @brief  Controll a ball to move across the screen
+*/
+
 #include "ball.h"
 #include "ir_uart.h"
 #include "paddle.h"
 
+//Initialise
 Ball ball_init(void)
 {
     Ball new_ball;
@@ -12,7 +19,9 @@ Ball ball_init(void)
     return new_ball;
 }
 
-uint8_t reverse_col(uint8_t col) {
+//When sending the ball to other controller, reverse the col bits to it is mirrored on other controlelr screen
+uint8_t reverse_col(uint8_t col) 
+{
     uint8_t result = 0;
     for (int i = 0; i < 7; i++) {
         result <<= 1;
@@ -23,27 +32,35 @@ uint8_t reverse_col(uint8_t col) {
     return result;
 }
 
+//Update the ball moving across the screen in different directions
 void ball_update(Ball* ball)
 {
     ball->current_col += ball->direction;
 
-    if (ball->diagonal == -1) {
+    
+    if (ball->diagonal == -1) { //Right
+
         if (ball->row_mask == TOP_ROW) {
             ball->diagonal = 1;
             ball->row_mask <<= 1;
+
         } else {
             ball->row_mask >>= 1;
         }
-    } else if (ball->diagonal == 1) {
+
+    } else if (ball->diagonal == 1) { //Left
+
         if (ball->row_mask == BOTTOM_ROW) {
             ball->diagonal = -1;
             ball->row_mask >>= 1;
-        } else {
+
+        } else { //Straight ahead
             ball->row_mask <<= 1;
         }
     }
 }
 
+//Return the row mask pattern
 uint8_t ball_get_pattern(Ball* ball, uint8_t display_col)
 {
     if (display_col == ball->current_col && ball->current_col >= 0 && ball->current_col < 5) {
@@ -52,12 +69,14 @@ uint8_t ball_get_pattern(Ball* ball, uint8_t display_col)
     return 0;
 }
 
+//Send the ball to the other controller
 void ball_transfer(Ball* ball)
 {
     ir_uart_putc(reverse_col((ball->row_mask)));
     ball->current_col = -1;
 }
 
+//Change directions of the ball when it touches the paddle
 void hit_paddle(Ball* ball, uint8_t paddle_mask)
 {
     ball->direction = -1;
@@ -78,15 +97,17 @@ void hit_paddle(Ball* ball, uint8_t paddle_mask)
     /* CHANGED: Swapped undefined helper names with the locally calculated pixel bitmasks */
     if (ball->row_mask == upper) {
         ball->diagonal = -1;
+
     } else if (ball->row_mask == middle) {
         ball->diagonal = 0;
+
     } else if (ball->row_mask == lower) {
         ball->diagonal = 1;
         
     }
 }
 
-
+//received the ball from the other controller and set accordingly
 void ball_received(Ball* ball, uint8_t row)
 {
     ball->row_mask = row;

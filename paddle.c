@@ -1,3 +1,9 @@
+/** @file   paddle.c
+    @author Alex Shepherd and Isaac Quinn
+    @date   14 October 2026
+    @brief  Movement of the paddle
+*/
+
 #include "paddle.h"
 #include "navswitch.h"
 
@@ -6,6 +12,7 @@ static int Lower;
 static int Middle;
 static int Upper;
 
+//Initialise
 uint8_t paddle_init(void)
 {
     Lower = 0x04;
@@ -14,6 +21,7 @@ uint8_t paddle_init(void)
     return PADDLE_START;
 }
 
+//Updates the paddles position based on Navstick response
 void paddle_update(uint8_t* paddle_mask)
 {
     navswitch_update();
@@ -24,6 +32,7 @@ void paddle_update(uint8_t* paddle_mask)
         Middle >>= 1;
         Upper >>= 1;
     }
+
     if (navswitch_push_event_p(NAVSWITCH_SOUTH) && !(*paddle_mask & BOTTOM_ROW)) {
         *paddle_mask <<= 1;
         Lower <<=1;
@@ -32,14 +41,17 @@ void paddle_update(uint8_t* paddle_mask)
     }
 }
 
+//Return middle value
 int get_middle(void) {
     return Middle;
 }
 
+//Return upper value
 int get_upper(void) {
     return Upper;
 }
 
+//Return lower value
 int get_lower(void) {
     return Lower;
 }

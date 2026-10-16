@@ -1,3 +1,9 @@
+/** @file   game.c
+    @author Alex Shepherd and Isaac Quinn
+    @date   16 October 2026
+    @brief  A program to play Pong on a Microcontroller
+*/
+
 #include "system.h"
 #include "pacer.h"
 #include "navswitch.h"
@@ -18,6 +24,18 @@ static uint8_t paddle = PADDLE_START;
 static Ball my_ball; 
 static int ball_active = 0;   
 static int player;
+
+//Initialise
+void game_init()
+{
+    system_init ();
+    start_init ();
+    ledmat_init ();
+    navswitch_init ();
+    ir_uart_init (); 
+    pacer_init (PACER_RATE);
+    player = 0;
+}
 
 /*when called, game is reset & p1/p2 can be chosen again*/
 static void reset_game(void)
@@ -41,15 +59,7 @@ static void display_update_game (void)
 int main (void)
 {
     //Initialise
-    system_init ();
-    start_init ();
-    ledmat_init ();
-    navswitch_init ();
-    ir_uart_init (); 
-    pacer_init (PACER_RATE);
-    
-
-    player = 0;
+    game_init()
     uint16_t ball_tick_counter = 0;
 
 
@@ -64,6 +74,7 @@ int main (void)
                 player = 2;
                 my_ball.current_col = -1;
                 paddle = PADDLE_START;
+
             /*if sent, you are player 1 & start with the ball*/
             } else if (navswitch_push_event_p(NAVSWITCH_PUSH) ) {
                 ir_uart_putc('S');
@@ -71,7 +82,6 @@ int main (void)
                 ball_active = 1;
                 paddle = PADDLE_START;
                 my_ball = ball_init(); 
-                
             }
         }
 
@@ -81,15 +91,15 @@ int main (void)
         /*ball movement*/
         if (!ball_active && ir_uart_read_ready_p()) {
 
+            // Received either the Reset code or the ball to continue game.
             uint8_t received = ir_uart_getc();
 
-            // You Win!
+            // You Win! (Reset game)
             if (received == 'R') {
                 // Happy face
                 show_face(1, 3000);
                 play_again();
                 reset_game();
-            
                 
             } else { //Receive ball
                 ball_active = 1;
@@ -97,6 +107,7 @@ int main (void)
             }
 
         }
+
         /*if ball is active, update its position*/
         if (ball_active) {
             ball_tick_counter++;
@@ -110,10 +121,11 @@ int main (void)
                     if (my_ball.row_mask & paddle) {
                         hit_paddle(&my_ball, paddle);
                     
-                    //ball misses paddle
+                    //ball misses paddle (You Lose)
                     } else {
-                        // You lose 
+                        //Receive Reset code
                         ir_uart_putc('R');
+                        
                         // Sad face
                         show_face(0, 3000);
                         play_again();

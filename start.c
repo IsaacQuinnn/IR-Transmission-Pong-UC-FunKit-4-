@@ -1,3 +1,9 @@
+/** @file   start.c
+    @author Alex Shepherd and Isaac Quinn
+    @date   15 October 2026
+    @brief  Displays "PRESS TO PLAY" when the microcontroller turns on
+*/
+
 #include "system.h"
 #include "pacer.h"
 #include "tinygl.h"
@@ -6,6 +12,7 @@
 
 #define PACER_RATE 500
 #define MESSAGE_RATE 20
+
 //Initialise
 void start_init(void)
 {

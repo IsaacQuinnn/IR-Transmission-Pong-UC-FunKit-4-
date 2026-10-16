@@ -1,8 +1,8 @@
-/** @file   ball.h
+/** @file   start.h
     @author Alex Shepherd & Isaac Quinn
     @date   15 October 2026
 
-    @brief Tells the user that the game is working and ready to start
+    @brief Displays "PRESS TO PLAY" when the microcontroller turns on
 */
 #ifndef START_H
 #define START_H

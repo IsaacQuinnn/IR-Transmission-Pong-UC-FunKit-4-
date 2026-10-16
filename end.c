@@ -1,3 +1,9 @@
+/** @file   end.c
+    @author Alex Shepherd and Isaac Quinn
+    @date   16 October 2026
+    @brief  Ending / Play again screen for when a player Wins/Loses
+*/
+
 #include "ledmat.h"
 #include "system.h"
 #include "tinygl.h"
@@ -7,16 +13,19 @@
 
 #define PACER_RATE 500
 
+//Winning happy face map
 static const uint8_t happy_face[]=
 {
     0x0, 0x14, 0x0, 0x22, 0x1C
 };
 
+//Losing sad face map
 static const uint8_t sad_face[]=
 {
     0x0, 0x14, 0x0, 0x1C, 0x22
 };
 
+//Shows the Win/Lose face once Won/Lost
 void show_face(int won, uint32_t time)
 {
     pacer_init(PACER_RATE);
@@ -32,6 +41,7 @@ void show_face(int won, uint32_t time)
     ledmat_display_column(0, 0);
 }
 
+//Displays "PLAY AGAIN?" on screen
 void play_again(void) {
     tinygl_clear();
     tinygl_font_set (&font3x5_1);
