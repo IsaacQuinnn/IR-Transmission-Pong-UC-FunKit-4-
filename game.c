@@ -142,7 +142,6 @@ int main (void)
             }
         }
 
-
         /*update display*/
         display_update_game ();
     }

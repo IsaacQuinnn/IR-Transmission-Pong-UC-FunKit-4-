@@ -12,8 +12,11 @@
 #include "navswitch.h"
 #include "pacer.h"
 
-//Shows the Win/Lose face once Won/Lost
+/** Shows the Win/Lose face once Won/Lost 
+    @param won 1 = player has one, 0 = player has lost
+    @param time time in ms  */
 void show_face(int won, uint32_t time);
+
 
 //Displays "PLAY AGAIN?" on screen
 void play_again(void);

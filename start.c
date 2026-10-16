@@ -1,7 +1,7 @@
 /** @file   start.c
     @author Alex Shepherd and Isaac Quinn
     @date   15 October 2026
-    @brief  Displays "PRESS TO PLAY" when the microcontroller turns on
+    @brief  Displays "PRESS TO PLAY" when the microcontroller turns on module
 */
 
 #include "system.h"

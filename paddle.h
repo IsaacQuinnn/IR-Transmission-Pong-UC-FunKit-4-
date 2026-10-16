@@ -1,7 +1,9 @@
 /** @file   paddle.h
     @author Alex Shepherd and Isaac Quinn
     @date   14 October 2026
-    @brief  Movement of the paddle
+    @brief  Movement of the paddle support
+
+    @defgroup Movement of the paddle module
 */
 
 #ifndef PADDLE_H
@@ -17,19 +19,28 @@
 #define BOTTOM_ROW 0x40
 #define PADDLE_COL 4
 
-//Initialise
+/** Initialise 
+    @return PADDLE_START    */
 uint8_t paddle_init(void);
 
-//Updates the paddles position based on Navstick response
+
+/** Updates the paddles position based on Navstick response 
+    @param paddle_mask row mask for the paddle  */
 void paddle_update(uint8_t* paddle_mask);
 
-//Return middle value
+
+/** Return middle value 
+    @return middle value of paddle  */
 int get_middle(void);
 
-//Return upper value
+
+/** Return upper value 
+    @return upper value of paddle   */
 int get_upper(void);
 
-//Return lower value
+
+/** Return lower value 
+    @return lower value of paddle   */
 int get_lower(void);
 
 #endif

@@ -1,7 +1,10 @@
 /** @file   ball.h
     @author Alex Shepherd & Isaac Quinn
     @date   14 October 2026
-    @brief Routines for moving the ball
+    @brief Routines for moving the ball support
+
+    @defgroup Routines for moving the ball
+
 */
 
 #ifndef BALL_H
@@ -29,22 +32,38 @@ typedef struct {
 //Initialise
 Ball ball_init(void);
 
-//When sending the ball to other controller, reverse the col bits to it is mirrored on other controlelr screen
+
+/** When sending the ball to other controller, reverse the col bits to it is mirrored on other controlelr screen
+    @param col pixel column.
+    @return reverse of col.     */
 uint8_t reverse_col(uint8_t col);
 
-//Update the ball moving across the screen in different directions
+
+/** Update the ball moving across the screen in different directions 
+    @param ball the ball struct    */
 void ball_update(Ball* ball);
 
-//Return the row mask pattern
+
+/** Return the row mask pattern 
+    @param ball the ball struct
+    @param display_col the column the ball is in    */
 uint8_t ball_get_pattern(Ball* ball, uint8_t display_col);
 
-//Send the ball to the other controller
+
+/** Send the ball to the other controller 
+    @param ball the ball struct     */
 void ball_transfer(Ball* ball);
 
-//Change directions of the ball when it touches the paddle
+
+/** Change directions of the ball when it touches the paddle 
+    @param ball the ball struct
+    @param paddle_mask row mask of the paddle   */
 void hit_paddle(Ball* ball, uint8_t paddle_mask);
 
-//received the ball from the other controller and set accordingly
+
+/** Received the ball from the other controller and set accordingly 
+    @param ball the ball struct
+    @param row the row the ball need to go to   */
 void ball_received(Ball* ball, uint8_t row);
 
 #endif

@@ -1,8 +1,10 @@
 /** @file   start.h
     @author Alex Shepherd & Isaac Quinn
     @date   15 October 2026
+    @brief Displays "PRESS TO PLAY" when the microcontroller turns on support
 
-    @brief Displays "PRESS TO PLAY" when the microcontroller turns on
+    @defgroup Displays "PRESS TO PLAY" when the microcontroller turns on module
+
 */
 #ifndef START_H
 #define START_H

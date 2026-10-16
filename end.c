@@ -25,7 +25,9 @@ static const uint8_t sad_face[]=
     0x0, 0x14, 0x0, 0x1C, 0x22
 };
 
-//Shows the Win/Lose face once Won/Lost
+/** Shows the Win/Lose face once Won/Lost 
+    @param won 1 = player has one, 0 = player has lost
+    @param time time in ms  */
 void show_face(int won, uint32_t time)
 {
     pacer_init(PACER_RATE);

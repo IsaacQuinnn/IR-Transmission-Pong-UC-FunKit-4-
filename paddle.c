@@ -1,7 +1,7 @@
 /** @file   paddle.c
     @author Alex Shepherd and Isaac Quinn
     @date   14 October 2026
-    @brief  Movement of the paddle
+    @brief  Movement of the paddle module
 */
 
 #include "paddle.h"
@@ -12,7 +12,8 @@ static int Lower;
 static int Middle;
 static int Upper;
 
-//Initialise
+/** Initialise 
+    @return PADDLE_START    */
 uint8_t paddle_init(void)
 {
     Lower = 0x04;
@@ -21,7 +22,8 @@ uint8_t paddle_init(void)
     return PADDLE_START;
 }
 
-//Updates the paddles position based on Navstick response
+/** Updates the paddles position based on Navstick response 
+    @param paddle_mask row mask for the paddle  */
 void paddle_update(uint8_t* paddle_mask)
 {
     navswitch_update();
@@ -41,17 +43,20 @@ void paddle_update(uint8_t* paddle_mask)
     }
 }
 
-//Return middle value
+/** Return middle value 
+    @return middle value of paddle  */
 int get_middle(void) {
     return Middle;
 }
 
-//Return upper value
+/** Return upper value 
+    @return upper value of paddle   */
 int get_upper(void) {
     return Upper;
 }
 
-//Return lower value
+/** Return lower value 
+    @return lower value of paddle   */
 int get_lower(void) {
     return Lower;
 }

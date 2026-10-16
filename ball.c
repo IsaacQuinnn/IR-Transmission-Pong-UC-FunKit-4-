@@ -8,7 +8,7 @@
 #include "ir_uart.h"
 #include "paddle.h"
 
-//Initialise
+//Initialise Ball
 Ball ball_init(void)
 {
     Ball new_ball;
@@ -19,7 +19,9 @@ Ball ball_init(void)
     return new_ball;
 }
 
-//When sending the ball to other controller, reverse the col bits to it is mirrored on other controlelr screen
+/** When sending the ball to other controller, reverse the col bits to it is mirrored on other controlelr screen
+    @param col pixel column.
+    @return reverse of col.     */
 uint8_t reverse_col(uint8_t col) 
 {
     uint8_t result = 0;
@@ -32,7 +34,8 @@ uint8_t reverse_col(uint8_t col)
     return result;
 }
 
-//Update the ball moving across the screen in different directions
+/** Update the ball moving across the screen in different directions 
+    @param ball the ball struct    */
 void ball_update(Ball* ball)
 {
     ball->current_col += ball->direction;
@@ -60,7 +63,9 @@ void ball_update(Ball* ball)
     }
 }
 
-//Return the row mask pattern
+/** Return the row mask pattern 
+    @param ball the ball struct
+    @param display_col the column the ball is in    */
 uint8_t ball_get_pattern(Ball* ball, uint8_t display_col)
 {
     if (display_col == ball->current_col && ball->current_col >= 0 && ball->current_col < 5) {
@@ -69,14 +74,17 @@ uint8_t ball_get_pattern(Ball* ball, uint8_t display_col)
     return 0;
 }
 
-//Send the ball to the other controller
+/** Send the ball to the other controller 
+    @param ball the ball struct     */
 void ball_transfer(Ball* ball)
 {
     ir_uart_putc(reverse_col((ball->row_mask)));
     ball->current_col = -1;
 }
 
-//Change directions of the ball when it touches the paddle
+/** Change directions of the ball when it touches the paddle 
+    @param ball the ball struct
+    @param paddle_mask row mask of the paddle   */
 void hit_paddle(Ball* ball, uint8_t paddle_mask)
 {
     ball->direction = -1;
@@ -107,7 +115,9 @@ void hit_paddle(Ball* ball, uint8_t paddle_mask)
     }
 }
 
-//received the ball from the other controller and set accordingly
+/** Received the ball from the other controller and set accordingly 
+    @param ball the ball struct
+    @param row the row the ball need to go to   */
 void ball_received(Ball* ball, uint8_t row)
 {
     ball->row_mask = row;
